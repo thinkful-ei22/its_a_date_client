@@ -13,9 +13,9 @@ export const fetchProtectedDataError = error => ({
     error
 });
 
-export const fetchProtectedData = () => (dispatch, getState) => {
-    const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/protected`, {
+export const fetchProtectedData = () => dispatch => {
+    const authToken = localStorage.getItem('authToken');
+    return fetch(`${API_BASE_URL}/users`, {
         method: 'GET',
         headers: {
             // Provide our auth token as credentials
@@ -24,7 +24,7 @@ export const fetchProtectedData = () => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({data}) => dispatch(fetchProtectedDataSuccess(data)))
+        .then(({userData}) => dispatch(fetchProtectedDataSuccess(userData)))
         .catch(err => {
             dispatch(fetchProtectedDataError(err));
         });
