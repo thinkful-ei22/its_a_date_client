@@ -7,7 +7,6 @@ import '../styles/EventContainer.css';
 
 export default class EventContainer extends Component {
 
-
     render() {
         return (
             <div className="container">

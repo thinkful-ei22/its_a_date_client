@@ -13,8 +13,18 @@ export const fetchProtectedDataError = error => ({
     error
 });
 
+
+export const REQUEST_PROTECTED_DATA = 'REQUEST_PROTECTED_DATA';
+export const requestProtectedData = loading => ({
+    type: REQUEST_PROTECTED_DATA,
+    loading
+});
+
+
 export const fetchProtectedData = () => dispatch => {  //getting user data
+
     const authToken = localStorage.getItem('authToken');
+    dispatch(requestProtectedData(true));
     return fetch(`${API_BASE_URL}/api/users`, {
         method: 'GET',
         headers: {

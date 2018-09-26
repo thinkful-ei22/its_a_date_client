@@ -11,7 +11,16 @@ import RegistrationForm  from './RegistrationForm';
 
 export class LandingPage extends Component {
 
+
+  componentDidMount(){
+    console.log('this.props.loggedIn',this.props.loggedIn);
+  }
+  
+
 render(){ 
+  if(this.props.loading){
+    return <h1>loading...</h1>
+  }
   if (this.props.loggedIn) {
       return <Redirect to="/dashboard" />;
   }
@@ -26,7 +35,8 @@ render(){
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  loading:state.auth.loading
 });
 
 export default connect(mapStateToProps)(LandingPage);

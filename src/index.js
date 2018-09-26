@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import store from './Store';
-import { CreateEvent } from './components/newEvent/CreateEvent';
+
 
 
 import {BrowserRouter as Router} from 'react-router-dom';
