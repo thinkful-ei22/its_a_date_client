@@ -58,6 +58,49 @@ export const login = (username, password) => dispatch => {
     );
 };
 
+export const FIND_EVENTS_REQUEST= 'FIND_EVENTS_REQUEST';
+export const findEventsRequest = ()=>({
+    type: FIND_EVENTS_REQUEST
+});
+export const FIND_EVENTS_SUCCESS= 'FIND_EVENTS_SUCCESS';
+export const findEventsSuccess = events =>({
+    type: FIND_EVENTS_SUCCESS,
+    events
+});
+export const FIND_EVENTS_FAILURE= 'FIND_EVENTS_FAILURE';
+export const findEventsFailure = error =>({
+    type: FIND_EVENTS_FAILURE,
+    error
+});
+
+export const fetchEvents = () => (dispatch) =>{
+    const authToken = localStorage.getItem('authToken')
+    dispatch(findEventsRequest());
+    return fetch(`${API_BASE_URL}/api/events`, {
+        method: 'GET',
+        headers:{
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res =>{
+        if(!res.ok){
+            return Promise.reject({
+                message:'Response Not Okay',
+                status: res.status,
+                statusText: res.statusText
+            });
+        }
+        return res.json();
+    })
+    .then(result => {
+        return dispatch(findEventsSuccess(result));
+    })
+    .catch(err => {
+        console.log('ERR', err);
+        return dispatch(findEventsFailure(err.statusText));
+    });
+};
 
 
 // export const refreshAuthToken = () => (dispatch, getState) => {
