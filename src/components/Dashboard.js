@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { EventList } from './EventList';
+import EventList from './EventList';
 import { connect } from 'react-redux';
 
 
@@ -14,7 +14,7 @@ export class Dashboard extends Component {
             return (
                 <div className="dashboard-wrapper">
                    
-                    <EventList currentUser={this.props.currentUser}/>
+                    <EventList events={this.props.events} dispatch={this.props.dispatch} />
                     <Link to="/create-event">Create Event</Link>
                     {/* <button id="create-event">Create Event</button> */}
                 </div>
@@ -29,7 +29,8 @@ export class Dashboard extends Component {
 
 const mapStateToProps = state => ({
     loggedIn: state.auth.currentUser !== null,
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser,
+    events: state.auth.events
   });
 
 export default withRouter(connect(mapStateToProps)(Dashboard));
