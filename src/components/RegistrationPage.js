@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import RegistrationForm from './RegistrationForm';
 import { Redirect } from 'react-router-dom';
-
+import Page from './Page';
 import './styles/LoginPage.css';
 
 export function RegistrationPage(props) {
@@ -12,12 +12,13 @@ export function RegistrationPage(props) {
         return <Redirect to="/dashboard" />;
     }
     return (    
+        <Page>
         <div className="container">
            <div className="form-container">
               <RegistrationForm />
             </div>
          </div>
-                
+         </Page>
     );
 }
 

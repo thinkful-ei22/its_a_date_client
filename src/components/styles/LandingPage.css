@@ -1,0 +1,51 @@
+.home-img{
+    position: fixed;
+    bottom: 0px;
+    max-width: 600px;
+    z-index: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+#hero-background{
+    background:url('/assets/home.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 600px;
+    z-index: 888;
+    height: 700px;
+    bottom: 0px;
+    left: 30%;
+    position: absolute;
+}
+
+.hero h1{
+    margin-top:10% !important;
+    font-size:60px;
+    position:relative;
+    z-index:1;
+    
+}
+
+
+@media only screen and (max-width: 450px) {
+
+
+    .hero h1{
+        font-size:20px;
+        text-align:left;
+        line-height:150%;
+    }
+
+    .home-img{
+        width:100%;
+        left:0px;
+        transform:translateX(2%);
+    }
+
+
+
+
+
+}

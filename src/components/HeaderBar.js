@@ -34,7 +34,7 @@ export class HeaderBar extends Component {
                 return(
                     <section className="header-bar">
                     <div className="header-logo">
-                        <h3><MdSentimentSatisfied/> Goodtimes</h3>
+                        <h3> <Link to="/"><MdSentimentSatisfied/></Link>Goodtimes</h3>
                     </div>
     
                         <div className="header-nav">    
@@ -50,7 +50,7 @@ export class HeaderBar extends Component {
                 return (
                     <section className="header-bar">
                     <div className="header-logo">
-                    <h3><MdSentimentSatisfied/> Goodtimes</h3>
+                    <h3>  <Link to="/"><MdSentimentSatisfied/></Link>Goodtimes</h3>
                     </div>
 
                         <div className="header-nav">

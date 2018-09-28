@@ -17,7 +17,10 @@ ul {
   
   .header-bar {
     height:50px;
-    margin:10px 20px;
+    padding:10px 20px;
+    width:100%;
+    position:fixed;
+    z-index:1
   }
 
   .header-nav {

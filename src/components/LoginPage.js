@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import Page from './Page';
 import LoginForm from './LoginForm';
 import { Redirect } from 'react-router-dom';
 
@@ -11,12 +11,14 @@ export function LoginPage(props) {
     if (props.loggedIn) {
         return <Redirect to="/dashboard" />;
     }
-    return (    
+    return ( 
+        <Page>  
         <div className="container">
            <div className="form-container">
               <LoginForm />
             </div>
          </div>
+         </Page> 
                 
     );
 }
