@@ -1,6 +1,6 @@
 import React from 'react';
 import { postNewEvent } from '../../actions/New-Event';
-
+import { Redirect } from 'react-router-dom';
 
 export default function PreviewEvent(props){
   
@@ -11,13 +11,13 @@ export default function PreviewEvent(props){
     return (
       <div key={i} className="option_container">
         <input 
-        type="radio" 
-        name="time-option" 
-        value={option.id} />
+          type="radio" 
+          name="time-option" 
+          value={option.id} />
 
         <label> {option.date} </label> 
-        </div>
-        );});
+      </div>
+    );});
 
   restaurantsDisplay = props.eventState.restaurantOptions.map((option,i) => { 
     let link = <a href={option.website}>{option.name}</a>;
@@ -27,14 +27,15 @@ export default function PreviewEvent(props){
           type="radio" 
           name="restaurant-option" 
           value={option.zomatoId} />
-          <label> {link} </label>
-        </div> );}); 
+        <label> {link} </label>
+      </div> );}); 
 
 
   function onSubmit() {
     const newEvent = {
       userId: props.userId,
       title: props.eventState.title,
+      draft: false,
       description: props.eventState.description,
       location: props.eventState.location,  //zomato location ID
       scheduleOptions: props.eventState.scheduleOptions,
@@ -45,6 +46,20 @@ export default function PreviewEvent(props){
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
   }
 
+  function onDraft(){
+    const newEvent = {
+      userId: props.userId,
+      title: props.eventState.title,
+      draft: true,
+      description: props.eventState.description,
+      location: props.eventState.location,  //zomato location ID
+      scheduleOptions: props.eventState.scheduleOptions,
+      restaurantOptions: props.eventState.restaurantOptions
+    };
+    return props.dispatch(postNewEvent(newEvent))
+      .then(() => props.goHome())
+      .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
+  }
   return (
     <div className='preview-event'>
       <div>
@@ -65,11 +80,11 @@ export default function PreviewEvent(props){
         <form className="event-form-options">
           <div className="time-options"> 
             <h4>Choose a Time:</h4>
-              {timesDisplay}
+            {timesDisplay}
           </div>
           <div className="restaurant-options"> 
             <h4>Choose a Place:</h4>
-             {restaurantsDisplay}
+            {restaurantsDisplay}
           </div>
           <br/>
           <br/>
@@ -77,7 +92,7 @@ export default function PreviewEvent(props){
       </div>
 
       <div>
-        <button type='button'>Save as Draft</button>
+        <button type='button' onClick={() => onDraft()}>Save as Draft</button>
         <button type='button' onClick={() => onSubmit()}>Looks good!</button>
       </div>
     </div>

@@ -8,6 +8,7 @@ export const initialState = {
   showNewEvent: false,
   errorMessage: '',
   title: '',
+  draft: false,
   location: '', //  <-- maybe switch this to {lat: ..., long: ...} ??
   description: '',
   scheduleOptions: [],
