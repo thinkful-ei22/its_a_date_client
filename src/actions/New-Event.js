@@ -23,19 +23,9 @@ export const newEventErrorMessage = message => ({
   message
 })
 
-export const POST_NEW_EVENT_REQUEST = 'POST_NEW_EVENT_REQUEST';
-export const postNewEventRequest = message => ({
-  type: POST_NEW_EVENT_REQUEST,
-  
-})
-export const POST_NEW_EVENT_SUCCESS = 'POST_NEW_EVENT_SUCCESS';
-export const postNewEventSuccess = message => ({
-  type: POST_NEW_EVENT_SUCCESS,
-  
-})
+
 
 export const postNewEvent = eventData => dispatch => {
-  dispatch(postNewEventRequest());
   const token = localStorage.getItem('authToken');
   return fetch(`${API_BASE_URL}/api/events`, {
     method: 'POST',
@@ -48,13 +38,8 @@ export const postNewEvent = eventData => dispatch => {
   .then(res => normalizeResponseErrors(res))
   .then(res => res.json())
   .then(res => {
-   dispatch(updateNewEventState({id: res.id}));
-    
-  })
-  .then(() => {
-    dispatch(postNewEventSuccess());
+    dispatch(updateNewEventState({id: res.id}));
     return Promise.resolve();
-}
-)
+  })
   .catch(err => Promise.reject(err) )
 }

@@ -1,63 +1,55 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { postNewEvent } from '../../actions/New-Event';
 
-import { connect  } from 'react-redux';
 
- class PreviewEvent extends Component {
-constructor(props){
-  super(props);
-}
-  onSubmit() {
+export default function PreviewEvent(props){
+  
+  
+  let timesDisplay, restaurantsDisplay;
+
+  timesDisplay = props.eventState.scheduleOptions.map((option, i) => { 
+    return (
+      <div key={i} className="option_container">
+        <input 
+        type="radio" 
+        name="time-option" 
+        value={option.id} />
+
+        <label> {option.date} </label> 
+        </div>
+        );});
+
+  restaurantsDisplay = props.eventState.restaurantOptions.map((option,i) => { 
+    let link = <a href={option.website}>{option.name}</a>;
+    return (
+      <div key={i} className="option_container">
+        <input 
+          type="radio" 
+          name="restaurant-option" 
+          value={option.zomatoId} />
+          <label> {link} </label>
+        </div> );}); 
+
+
+  function onSubmit() {
     const newEvent = {
-      userId: this.props.userId,
-      title: this.props.eventState.title,
-      description: this.props.eventState.description,
-      location: this.props.eventState.location,  //zomato location ID
-      scheduleOptions: this.props.eventState.scheduleOptions,
-      restaurantOptions: this.props.eventState.restaurantOptions
+      userId: props.userId,
+      title: props.eventState.title,
+      description: props.eventState.description,
+      location: props.eventState.location,  //zomato location ID
+      scheduleOptions: props.eventState.scheduleOptions,
+      restaurantOptions: props.eventState.restaurantOptions
     };
-    return this.props.dispatch(postNewEvent(newEvent))
-      .then(() => this.props.nextPage())
+    return props.dispatch(postNewEvent(newEvent))
+      .then(() => props.nextPage())
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
   }
-
-  render(){ 
-    let timesDisplay, restaurantsDisplay;
-
-    timesDisplay = this.props.eventState.scheduleOptions.map((option, i) => { 
-      return (
-        <div key={i} className="option_container">
-          <input 
-          type="radio" 
-          name="time-option" 
-          value={option.id} />
-  
-          <label> {option.date} </label> 
-          </div>
-          );});
-  
-    restaurantsDisplay = this.props.eventState.restaurantOptions.map((option,i) => { 
-      let link = <a href={option.website}>{option.name}</a>;
-      return (
-        <div key={i} className="option_container">
-          <input 
-            type="radio" 
-            name="restaurant-option" 
-            value={option.zomatoId} />
-            <label> {link} </label>
-          </div> );}); 
-  
- if(this.props.loading){
-  return (
-    <h1>Loading...</h1>
-   )
- } else { 
 
   return (
     <div className='preview-event'>
       <div>
         {/* <input type='image'/> */}
-        <button type='button' onClick={() => this.props.prevPage()}>
+        <button type='button' onClick={() => props.prevPage()}>
           {'<-'} Back
         </button>
         <h1>Preview Event Form</h1>
@@ -86,18 +78,13 @@ constructor(props){
 
       <div>
         <button type='button'>Save as Draft</button>
-        <button type='button' onClick={() => this.onSubmit()}>Looks good!</button>
+        <button type='button' onClick={() => onSubmit()}>Looks good!</button>
       </div>
     </div>
   );
 }
- }
-}
-const mapStateToProps = state => ({
-  loading: state.newEvent.loading
- 
-});
-export default connect(mapStateToProps)(PreviewEvent);
+
+
 
 
 //PROPS: <PreviewEvent nextPage={this.nextPage} dispatch={this.props.dispatch} prevPage={this.prevPage} eventState={this.props.newEvent}/>;
