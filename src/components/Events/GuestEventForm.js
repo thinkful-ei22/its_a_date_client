@@ -20,7 +20,7 @@ class GuestEventForm extends Component {
   componentDidMount(){
     //GET EVENT DATA
     const { eventId }= this.props.match.params;
-
+   console.log('GUEST EVENT MOUNT', this.props);
     fetch(`${API_BASE_URL}/api/guestevents/${eventId}`, {
       method: 'GET',
     })
@@ -94,7 +94,7 @@ class GuestEventForm extends Component {
             </div> );});        
 
       return (
-        <div className="guest-event-form-wrapper">
+        <div className="guest-event-form-wrapper paddingTop">
           <h3>You're invited to:</h3>
           <h1>{title}</h1><br/>
           <h3>Vote to decide on a time and place.</h3>

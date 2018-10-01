@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { clearAuth } from '../actions/Auth';
 // import { clearAuthToken } from '../Local-Storage';
-import {Link} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import {changeCurrentUser} from '../actions/Protected-Data';
 import {MdSentimentSatisfied} from 'react-icons/lib/md';
+
 import './styles/HeaderBar.css';
 
 
@@ -24,17 +25,17 @@ export class HeaderBar extends Component {
            
         let signUpButton, logInButton;
              signUpButton =(
-                <button className="signup">Sign Up</button>
+                <NavLink to="/register" className="signup"  >Sign Up</NavLink>
             );
             logInButton =(
-                <button className="login">Log In</button>
+                <NavLink  to="/login" className="login" >Log In</NavLink>
             );
 
             if(this.props.loggedIn){
                 return(
                     <section className="header-bar">
                     <div className="header-logo">
-                        <h3><MdSentimentSatisfied/> Goodtimes</h3>
+                        <h3> <Link to="/dashboard"><MdSentimentSatisfied className="smily"/></Link>Goodtimes</h3>
                     </div>
     
                         <div className="header-nav">    
@@ -50,15 +51,15 @@ export class HeaderBar extends Component {
                 return (
                     <section className="header-bar">
                     <div className="header-logo">
-                    <h3><MdSentimentSatisfied/> Goodtimes</h3>
+                    <h3>  <Link to="/home"><MdSentimentSatisfied className="smily"/></Link>Goodtimes</h3>
                     </div>
 
                         <div className="header-nav">
                     
                             
                             
-                            <Link to="/register">{signUpButton}</Link>
-                            <Link to="/login">{logInButton}</Link>
+                            <div className="navItem">{signUpButton}</div>
+                            <div className="navItem"> {logInButton}</div>
                        </div>
                
                 </section>

@@ -4,15 +4,38 @@ import {Field, reduxForm, focus} from 'redux-form';
 import Input from './Input';
 import {login} from '../actions/Auth';
 import {required, nonEmpty} from '../Validators';
+const uuidv4 = require('uuid/v4');
 
 export class LoginForm extends React.Component {
 
-    
-    onSubmit(values) {
-        return this.props.dispatch(login(values.username, values.password));
+    constructor(props){
+        super(props);
+        this.randomId=uuidv4();
+        this.usernameId=uuidv4();
+        this.passwordId=uuidv4();
     }
 
+    
+    onSubmit(values) {
+        return this.props.dispatch(login(values[this.usernameId], values[this.passwordId]));
+    }
+
+
+    componentWillUnMount(){
+        console.log('unmounting');
+       
+    }
+
+    componentWillMount(){
+      console.log("mounting login form");
+
+    }
+
+
+
     render() {
+   
+      
         let error;
         if (this.props.error) {
             error = (
@@ -23,25 +46,27 @@ export class LoginForm extends React.Component {
         }
         return (
             <form
+                id={this.randomId}
                 className="login-form"
                 onSubmit={this.props.handleSubmit(values =>
                     this.onSubmit(values)
                 )}>
                 {error}
-                <label htmlFor="username">Username</label>
+                <label htmlFor={this.randomId}>Username</label>
                 <Field
                     component={Input}
+                    autofocus
                     type="text"
-                    name="username"
-                    id="username"
+                    name={this.usernameId}
+                    id={this.usernameId}
                     validate={[required, nonEmpty]}
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor={this.randomId}>Password</label>
                 <Field
                     component={Input}
                     type="password"
-                    name="password"
-                    id="password"
+                    name={this.passwordId}
+                    id={this.passwordId}
                     validate={[required, nonEmpty]}
                 />
                 <button disabled={this.props.pristine || this.props.submitting}>
