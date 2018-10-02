@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { CLIENT_BASE_URL } from '../../config';
+import { resetNewEventState } from '../../actions/New-Event';
 
 
 export default class SuccessfullyCreatedEvent extends React.Component {
@@ -13,6 +14,13 @@ export default class SuccessfullyCreatedEvent extends React.Component {
     }
   
   }
+
+  //Need to clear the local storage persistance after form is submitted
+  componentWillUnmount(){
+    this.props.dispatch(resetNewEventState());
+    localStorage.removeItem('eventDraft');
+    localStorage.removeItem('newEventPageCount');
+  }
   
   
   handleCopy =()=>{
@@ -23,7 +31,6 @@ export default class SuccessfullyCreatedEvent extends React.Component {
     document.execCommand('copy',false);
     inp.remove();
     this.setState({copied:true});
-    
   }
 
   
@@ -41,7 +48,11 @@ export default class SuccessfullyCreatedEvent extends React.Component {
           <button onClick={this.handleCopy}>Copy Link</button>  
           {this.state.copied ? <span style={{color: 'red'}}><p>Copied</p></span> : null}
             <p></p>
-          <Link to="/dashboard"> <button id="back-to-dashboard" >Back to Dashboard</button></Link>
+          <Link to="/dashboard"> 
+            <button id="back-to-dashboard">
+                Back to Dashboard
+            </button>
+          </Link>
         </div>
 
       </div>

@@ -14,8 +14,12 @@ export const updateNewEventState = updateObject => ({
   type: UPDATE_NEW_EVENT_STATE,
   updateObject
 });
-//Example input:  {restuarantOptions: [zomatoId: '123', votes: 0]}
 
+
+export const RESET_NEW_EVENT_STATE = 'RESET_NEW_EVENT_STATE';
+export const resetNewEventState = () => ({
+  type: RESET_NEW_EVENT_STATE
+})
 
 export const NEW_EVENT_ERROR_MESSAGE = 'NEW_EVENT_ERROR_MESSAGE';
 export const newEventErrorMessage = message => ({
