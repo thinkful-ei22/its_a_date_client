@@ -6,6 +6,7 @@ import {
   POST_NEW_EVENT_SUCCESS,
   RESET_NEW_EVENT_STATE
 } from '../actions/New-Event';
+import { SEND_EMAIL_REQUEST, SEND_EMAIL_ERROR, SEND_EMAIL_SUCCESS } from '../actions/Email';
 
 import {
   LOAD_DRAFT_INTO_REDUX_STATE,
@@ -19,16 +20,22 @@ export const initialState = {
   errorMessage: '',
 
   title: '',
-  city: '',
-  state: '',
   description: '',
   draft: false,
-  location: '',
+  location: '', // i.e. {latitude: 55, longitude: -55}
+  locationCity: '', // i.e. {city: 'Denver', state: 'CO'}
   scheduleOptions: [],
   restaurantOptions: [],
   activityOptions:[],
   id: null,
-  loading: false
+  loading: false,
+  inviteEmail: {
+    to: '',
+    from: '',
+    subject: '',
+    text: '',
+    html: ''
+  }
 };
 
 //draft that's being edited 
@@ -73,7 +80,27 @@ console.log('New event Success');
       errorMessage: action.message,
       loading: false
     });
-  } else {
+  } else if(action.type === SEND_EMAIL_REQUEST){
+    console.log(action);
+    return Object.assign({}, state, {
+      loading:true
+    });
+  }
+  else if(action.type === SEND_EMAIL_ERROR){
+    console.log(action);
+    return Object.assign({}, state, {
+      loading: false,
+      errorMessage: action.error,
+    });
+  }
+  else if(action.type === SEND_EMAIL_SUCCESS){
+    console.log(action);
+    return Object.assign({}, state, {
+      loading: false,
+      email: action.email
+    });
+  }
+  else {
     return state;
   }
 }

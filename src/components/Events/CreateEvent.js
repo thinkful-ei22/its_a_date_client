@@ -105,7 +105,11 @@ export class CreateEvent extends React.Component {
       }
     }
 
-    this.props.dispatch(updateNewEventState({title, description}));
+    this.props.dispatch(updateNewEventState({
+      title, 
+      description, 
+      locationCity: {city, state}
+    }));
     this.props.nextPage();
   }
 
@@ -162,9 +166,12 @@ console.log('Create EVENT', this.props);
           }}
         />
         <label htmlFor='stateLocation'>Location</label>
-        <select name="stateLocation" id="stateLocation" value={this.props.eventState.state} 
+        <select name="stateLocation" id="stateLocation" value={this.props.eventState.locationCity.state ? this.props.eventState.locationCity.state : 'AL'} 
           onChange={e => {
-            this.props.dispatch(updateNewEventState({state: e.target.value}));
+            let city = this.props.eventState.locationCity.city ? this.props.eventState.locationCity.city : '';
+            this.props.dispatch(updateNewEventState({
+              locationCity: {city, state: e.target.value}
+            }));
             this.setState({locationOption: 0}, () => this.validateCity() );
           }}>
 
@@ -227,9 +234,12 @@ console.log('Create EVENT', this.props);
           id="cityLocation"
           name="cityLocation"
           placeholder="Please enter a City"
-          value={this.props.eventState.city}
+          value={this.props.eventState.locationCity.city ? this.props.eventState.locationCity.city : ''}
           onChange={e => {
-            this.props.dispatch(updateNewEventState({city: e.target.value}));
+            let state = this.props.eventState.locationCity.state ? this.props.eventState.locationCity.state : '';
+            this.props.dispatch(updateNewEventState({
+              locationCity: {city: e.target.value, state}
+            }));
             this.setState({locationOption: 0}, () => this.props.dispatch(newEventErrorMessage(null)));
           }}
           onBlur={() => this.validateCity()}

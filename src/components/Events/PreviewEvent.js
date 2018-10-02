@@ -11,9 +11,8 @@ export default function PreviewEvent (props) {
       title: props.eventState.title,
       draft: false,
       description: props.eventState.description,
-      city: props.eventState.city,
-      state: props.eventState.state,
       location: props.eventState.location,  //{latitude: ..., longitude: ...}
+      locationCity: props.eventState.locationCity,
       scheduleOptions: props.eventState.scheduleOptions,
       restaurantOptions: props.eventState.restaurantOptions,
       activityOptions: props.eventState.activityOptions
@@ -44,9 +43,8 @@ export default function PreviewEvent (props) {
       title: props.eventState.title,
       draft: true,
       description: props.eventState.description,
-      city: props.eventState.city,
-      state: props.eventState.state,
       location: props.eventState.location,  //{latitude: ..., longitude: ...}
+      locationCity: props.eventState.locationCity,
       scheduleOptions: props.eventState.scheduleOptions,
       restaurantOptions: props.eventState.restaurantOptions,
       activityOptions: props.eventState.activityOptions
@@ -61,14 +59,14 @@ export default function PreviewEvent (props) {
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
   } 
   else {
+  
     const updatedDraft = { 
       id: props.eventState.id,
     userId: props.userId,
       title: props.eventState.title,
       draft: true,
       description: props.eventState.description,
-      city: props.eventState.city,
-      state: props.eventState.state,
+     locationCity: props.eventState.locationCity,
       location: props.eventState.location,  //{latitude: ..., longitude: ...}
       scheduleOptions: props.eventState.scheduleOptions,
       restaurantOptions: props.eventState.restaurantOptions,
@@ -137,7 +135,7 @@ export default function PreviewEvent (props) {
       
       <div className="guest-event-form-wrapper">
         <h3>You're invited to:</h3>
-        <h1>Title</h1><br/>
+        <h1>{props.eventState.title}</h1><br/>
         <h3>Vote to decide on a time and place.</h3>
             
         <h3>Description</h3>
