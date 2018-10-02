@@ -1,11 +1,12 @@
 import React from 'react';
+import { putUpdatedDraft } from '../../actions/Edit-Draft';
 import { postNewEvent, resetNewEventState } from '../../actions/New-Event';
 
 
 export default function PreviewEvent (props) {
 
   function onSubmit() {
-    const newEvent = {
+    const event = {
       userId: props.currentUser.id,
       title: props.eventState.title,
       draft: false,
@@ -16,12 +17,27 @@ export default function PreviewEvent (props) {
       restaurantOptions: props.eventState.restaurantOptions,
       activityOptions: props.eventState.activityOptions
     };
-    return props.dispatch(postNewEvent(newEvent))
+
+    if(!props.eventState.draft){ 
+    return props.dispatch(postNewEvent(event))
       .then(() => props.nextPage())
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
-  }
+
+        } else {
+        //submit draft as new event - delete draft
+        event.id = props.eventState.id;
+        return props.dispatch(putUpdatedDraft(event))
+        .then(() => props.nextPage())
+        .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
+  
+      }
+    }
+ 
+
 
  function onDraft () {
+  //console.log('Preview Event' ,props.eventState);
+   if(!props.eventState.draft){ 
     const newEvent = {
       userId: props.currentUser.id,
       title: props.eventState.title,
@@ -41,9 +57,28 @@ export default function PreviewEvent (props) {
         props.goHome();
       })
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
-  }
+  } 
+  else {
+  
+    const updatedDraft = { 
+      id: props.eventState.id,
+    userId: props.userId,
+      title: props.eventState.title,
+      draft: true,
+      description: props.eventState.description,
+     locationCity: props.eventState.locationCity,
+      location: props.eventState.location,  //{latitude: ..., longitude: ...}
+      scheduleOptions: props.eventState.scheduleOptions,
+      restaurantOptions: props.eventState.restaurantOptions,
+      activityOptions: props.eventState.activityOptions
+     }  
+     return props.dispatch(putUpdatedDraft(updatedDraft))
+     .then(() => props.goHome())
+     .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
+  
+     }
 
-
+ }
   let timesDisplay, restaurantsDisplay, activitiesDisplay;
 
     timesDisplay = props.eventState.scheduleOptions.map((option, i) => { 
@@ -100,7 +135,7 @@ export default function PreviewEvent (props) {
       
       <div className="guest-event-form-wrapper">
         <h3>You're invited to:</h3>
-        <h1>Title</h1><br/>
+        <h1>{props.eventState.title}</h1><br/>
         <h3>Vote to decide on a time and place.</h3>
             
         <h3>Description</h3>

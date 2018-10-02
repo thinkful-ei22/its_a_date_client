@@ -41,6 +41,7 @@ export const postNewEventSuccess = message => ({
 
 
 export const postNewEvent = eventData => dispatch => {
+  console.log('EVENT DATA', eventData);
   dispatch(postNewEventRequest());
   const token = localStorage.getItem('authToken');
   return fetch(`${API_BASE_URL}/api/events`, {

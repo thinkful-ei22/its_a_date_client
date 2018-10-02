@@ -7,6 +7,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
+    "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-icons": "^2.2.7",
@@ -19,12 +20,14 @@
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.14.1",
     "styled-components": "^3.4.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile:sass": "node-sass src/components/styles/sass/Main.scss src/components/styles/Index.css -w"
   }
 }

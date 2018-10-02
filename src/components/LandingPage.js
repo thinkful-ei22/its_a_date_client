@@ -13,7 +13,7 @@ export class LandingPage extends Component {
 
 
   componentDidMount(){
-    console.log('this.props.loggedIn',this.props.loggedIn);
+    //console.log('this.props.loggedIn',this.props.loggedIn);
   }
   
 
