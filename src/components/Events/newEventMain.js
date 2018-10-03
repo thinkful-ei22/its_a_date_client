@@ -12,7 +12,7 @@ import CreateEventContainer from './CreateEventContainer';
 export class NewEventMain extends React.Component {
   constructor(props){
     super(props);
-    console.log('New Event Main props',props);
+    
     this.state = {
       pageCount: this.props.pageCount ? this.props.pageCount :  1
     };

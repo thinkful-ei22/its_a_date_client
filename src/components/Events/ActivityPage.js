@@ -79,12 +79,24 @@ export default class ActivitySelect extends React.Component {
         times={this.props.times}/>;
     }
     let selectedActivitiesDisplay;
-    if ( this.props.eventState.activityOptions.length > 0 ){
-      selectedActivitiesDisplay = this.props.eventState.activityOptions.map((activity,index) => <div key={index}>
-        <a href={activity.link} target='blank'>{activity.title}:</a>
-        <p>{activity.description.length > 50 ? `${activity.description.slice(0,50)}...` : activity.description}</p>
-      </div>
-      );
+    if ( this.props.eventState.activityOptions.length > 0){
+      selectedActivitiesDisplay = this.props.eventState.activityOptions.map((activity,index) => { 
+      if(!activity.description){  
+        return (  <div key={index}>
+          <a href={activity.link} target='blank'>{activity.title}</a>
+         </div>
+     )
+           } else {
+
+            return (  <div key={index}>
+              <a href={activity.link} target='blank'>{activity.title}:</a>
+               <p>{activity.description.length > 50 ? `${activity.description.slice(0,50)}...` : activity.description}</p>
+           </div>
+)
+
+
+            }
+            });      
     }
 
     return(

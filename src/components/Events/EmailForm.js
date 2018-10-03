@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { sendEmail } from '../../actions/Email';
 import { CLIENT_BASE_URL } from '../../config';
 
-export default class EmailForm extends React.Component {
+
+ class EmailForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -15,7 +17,7 @@ export default class EmailForm extends React.Component {
     const recipients = e.target.to.value.split(',');
     this.props.dispatch(sendEmail({
       to: recipients,
-      from: e.target.from.value,
+      from: this.props.currentUser.email,
       subject: e.target.subject.value,
       text: e.target.message.value,
       html: `<p>${e.target.message.value}</p>`
@@ -41,8 +43,7 @@ export default class EmailForm extends React.Component {
     return (
       <div>
         <form onSubmit={(e) => this.sendEmail(e)}>
-          <label htmlFor='from'>Enter your e-mail.</label>
-          <input placeholder='user@example.com' id='from'></input>
+          
           <label htmlFor='to'>Enter recipients' e-mails separated by a comma.</label>
           <input placeholder="friend1@example.com, friend2@example.com, friend3@example.com" id="to"></input>
           <label htmlFor='subject'>Enter the subject of the e-mail.</label>
@@ -56,3 +57,10 @@ export default class EmailForm extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+})
+export default connect(mapStateToProps)(EmailForm);
+//<label htmlFor='from'>Enter your e-mail.</label>
+//<input placeholder='user@example.com' id='from'></input>
