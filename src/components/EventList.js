@@ -4,7 +4,7 @@ import EventItem from './EventItem';
 import DraftItem from './DraftItem';
 
 export function EventList(props) {
-  if (props.drafts) {
+  if (props.events) {
     return (
       <div>
         {props.userEvents.map((event, i)=> <EventItem key={i} event={event} dispatch={props.dispatch}/> )}
