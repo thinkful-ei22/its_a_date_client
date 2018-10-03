@@ -18,6 +18,13 @@ import {
 
 } from '../actions/Edit-Draft';
 
+import { 
+PUT_UPDATED_EVENT_REQUEST,
+  PUT_UPDATED_EVENT_SUCCESS
+
+} from '../actions/Edit-Saved-Event';
+
+
 export const initialState = {
   showNewEvent: false,
   errorMessage: '',
@@ -124,7 +131,15 @@ console.log('New event Success');
       errorMessage: null
     });
   }
-  else {
+  else if (action.type === PUT_UPDATED_EVENT_REQUEST) {
+    return Object.assign({}, state, {
+      loading: true
+    });
+  } else if (action.type === PUT_UPDATED_EVENT_SUCCESS) {
+    return Object.assign({}, state, {
+      loading: false
+    });
+  } else {
     return state;
   }
 }
