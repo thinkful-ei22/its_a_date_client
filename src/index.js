@@ -5,11 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import store from './Store';
-
-
-
 import {BrowserRouter as Router} from 'react-router-dom';
-import Dashboard from './components/Dashboard';
 
 
 ReactDOM.render(

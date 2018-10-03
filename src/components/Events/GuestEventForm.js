@@ -20,7 +20,7 @@ class GuestEventForm extends Component {
   componentDidMount(){
     //GET EVENT DATA
     const { eventId }= this.props.match.params;
-
+   console.log('GUEST EVENT MOUNT', this.props);
     fetch(`${API_BASE_URL}/api/guestevents/${eventId}`, {
       method: 'GET',
     })
@@ -37,19 +37,35 @@ class GuestEventForm extends Component {
   submitVotes(event){
     event.preventDefault();
 
-    //If restaurants or times section has not been filled out, return
-
     if(!document.querySelector('input[name="restaurant-option"]:checked') ||
     !document.querySelector('input[name="time-option"]:checked') ){
       return;
     }
-    const restaurantId = document.querySelector('input[name="restaurant-option"]:checked').value;
-    const dateId = document.querySelector('input[name="time-option"]:checked').value;
+    const restaurantId = document.querySelectorAll('input[name="restaurant-option"]:checked');
+    
+    const restaurantArr = [];
+    restaurantId.forEach(restaurant => {
+      restaurantArr.push(restaurant.value);
+    })
+    
+    const dateId = document.querySelectorAll('input[name="time-option"]:checked');
+    const dateArr = [];
+    dateId.forEach(date => {
+      dateArr.push(date.value);
+    })
+    
+    const activityId = document.querySelectorAll('input[name="activity-option"]:checked');
+    const activityArr = [];
+    activityId.forEach(act => {
+      activityArr.push(act.value);
+    })
+
     const eventId = this.state.guestEvent.id;
 
     let selectionObject = {
-      dateSelection: dateId,
-      restaurantSelection: restaurantId
+      dateSelection: dateArr,
+      restaurantSelection: restaurantArr,
+      activitySelection: activityArr
     };
     console.log('SELECTION OBJ', selectionObject);
     this.props.dispatch(updateEventVotes(selectionObject, eventId));
@@ -66,35 +82,49 @@ class GuestEventForm extends Component {
         <p>Loading...</p>
       );
     } else { 
-      let timesDisplay, restaurantsDisplay;
+      let timesDisplay, restaurantsDisplay, activitiesDisplay;
 
-      const {title, description, scheduleOptions, restaurantOptions } = this.state.guestEvent;
+      const {title, description, scheduleOptions, restaurantOptions, activityOptions } = this.state.guestEvent;
 
-      timesDisplay = scheduleOptions.map(option => { 
+      timesDisplay = scheduleOptions.map((option, i) => { 
         return (
-          <div className="option_container">
+          <div key={i} className="option_container">
             <input 
-            type="radio" 
-            name="time-option" 
+            type="checkbox"
+            id={"time-option"+i}
+            name="time-option"
             value={option.id} />
   
             <label> {option.date} </label> 
             </div>
             );});
 
-      restaurantsDisplay = restaurantOptions.map(option => { 
+      restaurantsDisplay = restaurantOptions.map((option, i) => { 
         let link = <a href={option.website}>{option.name}</a>;
         return (
-          <div className="option_container">
+          <div key={i} className="option_container">
             <input 
-              type="radio" 
-              name="restaurant-option" 
+              type="checkbox" 
+              id={"restaurant-option"+i}
+              name="restaurant-option"
               value={option.zomatoId} />
               <label> {link} </label>
-            </div> );});        
+            </div> );});   
+
+      activitiesDisplay = activityOptions.map((option, i) => { 
+        let link = <a href={option.link}>{option.title}</a>;
+        return (
+          <div key={i} className="option_container">
+            <input 
+              type="checkbox" 
+              id={"activity-option"+i}
+              name="activity-option"
+              value={option.ebId} />
+              <label> {link} </label>
+            </div> );});
 
       return (
-        <div className="guest-event-form-wrapper">
+        <div className="guest-event-form-wrapper paddingTop bottom-offset">
           <h3>You're invited to:</h3>
           <h1>{title}</h1><br/>
           <h3>Vote to decide on a time and place.</h3>
@@ -108,6 +138,10 @@ class GuestEventForm extends Component {
             <div className="restaurant-options"> 
               <h4>Let's go eat at...</h4>
               {restaurantsDisplay}
+            </div>
+            <div className="activity-options"> 
+              <h4>Let's go to this event...</h4>
+              {activitiesDisplay}
             </div>
             <br/>
             <br/>

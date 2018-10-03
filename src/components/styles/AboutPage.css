@@ -1,0 +1,48 @@
+.about-info{
+
+    max-width:500px;
+    text-align:left;
+    padding:0px 25px;
+
+}
+
+
+.about-info ul{
+    list-style-type:circle;
+    list-style-position: inside;
+}
+
+.about-info li{
+    font-weight:bold;
+}
+
+.bg-about{
+    background:url('/assets/home-about.png') !important;
+background-size:cover !important;
+}
+
+.about-icon-container{
+   width:100%;
+   float:left;
+   display:block;
+}
+
+.boxItem{
+    width: 150px;
+    text-align: center;
+    float: left;
+    display: inline-block;
+}
+
+.about-icon-container img{
+    position: relative;
+    width: 60px;
+    margin: auto;
+    display: block;
+}
+
+@media only screen and (max-width: 450px) {
+    .bg-about{
+       background:white !important;
+    }
+}

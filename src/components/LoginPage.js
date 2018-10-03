@@ -3,20 +3,28 @@ import { connect } from 'react-redux';
 
 import LoginForm from './LoginForm';
 import { Redirect } from 'react-router-dom';
-
 import './styles/LoginPage.css';
 
+
 export function LoginPage(props) {
+ 
     console.log(props.loggedIn,'Login');
     if (props.loggedIn) {
         return <Redirect to="/dashboard" />;
     }
-    return (    
+    return ( 
+        
         <div className="container">
+   
            <div className="form-container">
+           <h1>Welcome Back!</h1>
+           <p>Sign in to access your dashboard, manage your events and create new ones. </p>
               <LoginForm />
             </div>
+
+                 <div className="bg"></div>
          </div>
+       
                 
     );
 }

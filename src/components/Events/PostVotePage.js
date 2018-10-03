@@ -20,7 +20,7 @@ export class PostVote extends React.Component {
       return <Redirect to='/'/>;
     }
     return (    
-      <div className="container">
+      <div className="container paddingTop">
           Thanks for your input!
           Your event coordinator will be in touch with the final plan!
       </div>

@@ -1,9 +1,17 @@
 #dashboard_main{
-    width:400px;
+    /* width:400px;
     display:inline-block;
     float:left;
     text-align:left;
-  
+   */
+
+   /* padding-top: 100px; */
+   width: 400px;
+   flex-direction: column;
+   display: flex;
+   float: left;
+   justify-content: center;
+   text-align: left;
 
 }
 
@@ -17,14 +25,21 @@
 }
 
 #dashboard_eventlist{
-    width:500px;
+    /* width:500px;
     display:inline-block;
     float:left;
- 
+  */
+
+  width: 500px;
+  display: flex;
+  /* padding-top: 180px; */
+  float: left;
+  flex-direction: column;
 
 }
 
 .dashboard-wrapper{
+    padding-top:110px;
     max-width:910px;
     margin:auto;
 }
@@ -33,3 +48,5 @@
     max-width:300px;
 
 }
+
+

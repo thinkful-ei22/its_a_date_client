@@ -1,103 +1,140 @@
-import React, { Component } from 'react';
-import { postNewEvent } from '../../actions/New-Event';
+import React from 'react';
+import { postNewEvent, resetNewEventState } from '../../actions/New-Event';
+import '../styles/PreviewEvent.css'
 
-import { connect  } from 'react-redux';
 
- class PreviewEvent extends Component {
-constructor(props){
-  super(props);
-}
-  onSubmit() {
+export default function PreviewEvent (props) {
+
+  function onSubmit() {
     const newEvent = {
-      userId: this.props.userId,
-      title: this.props.eventState.title,
-      description: this.props.eventState.description,
-      location: this.props.eventState.location,  //zomato location ID
-      scheduleOptions: this.props.eventState.scheduleOptions,
-      restaurantOptions: this.props.eventState.restaurantOptions
+      userId: props.currentUser.id,
+      title: props.eventState.title,
+      draft: false,
+      description: props.eventState.description,
+      location: props.eventState.location,  //{latitude: ..., longitude: ...}
+      locationCity: props.eventState.locationCity,
+      scheduleOptions: props.eventState.scheduleOptions,
+      restaurantOptions: props.eventState.restaurantOptions,
+      activityOptions: props.eventState.activityOptions
     };
-    return this.props.dispatch(postNewEvent(newEvent))
-      .then(() => this.props.nextPage())
+    return props.dispatch(postNewEvent(newEvent))
+      .then(() => props.nextPage())
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
   }
 
-  render(){ 
-    let timesDisplay, restaurantsDisplay;
+ function onDraft () {
+    const newEvent = {
+      userId: props.currentUser.id,
+      title: props.eventState.title,
+      draft: true,
+      description: props.eventState.description,
+      location: props.eventState.location,  //{latitude: ..., longitude: ...}
+      locationCity: props.eventState.locationCity,
+      scheduleOptions: props.eventState.scheduleOptions,
+      restaurantOptions: props.eventState.restaurantOptions,
+      activityOptions: props.eventState.activityOptions
+    };
+    return props.dispatch(postNewEvent(newEvent))
+      .then(() => {
+        props.dispatch(resetNewEventState());
+        localStorage.removeItem('eventDraft');
+        localStorage.removeItem('newEventPageCount');
+        props.goHome();
+      })
+      .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
+  }
 
-    timesDisplay = this.props.eventState.scheduleOptions.map((option, i) => { 
+
+  let timesDisplay, restaurantsDisplay, activitiesDisplay;
+
+    timesDisplay = props.eventState.scheduleOptions.map((option, i) => { 
       return (
         <div key={i} className="option_container">
           <input 
-          type="radio" 
-          name="time-option" 
-          value={option.id} />
+            type="checkbox" 
+            id={"time-option"+i}
+            name="time-option" 
+            value={option.id} />
   
           <label> {option.date} </label> 
-          </div>
-          );});
+        </div>
+      );});
   
-    restaurantsDisplay = this.props.eventState.restaurantOptions.map((option,i) => { 
+    restaurantsDisplay = props.eventState.restaurantOptions.map((option,i) => { 
       let link = <a href={option.website}>{option.name}</a>;
       return (
         <div key={i} className="option_container">
           <input 
-            type="radio" 
-            name="restaurant-option" 
+            type="checkbox" 
+            id={"restaurant-option"+i}
+            name="restaurant-option"
             value={option.zomatoId} />
-            <label> {link} </label>
-          </div> );}); 
-  
- if(this.props.loading){
-  return (
-    <h1>Loading...</h1>
-   )
- } else { 
+          <label> {link} </label>
+        </div> );}); 
+      
+    activitiesDisplay = props.eventState.activityOptions.map((option,i) => { 
+      let link = <a href={option.link}>{option.title}</a>;
+      return (
+        <div key={i} className="option_container">
+          <input 
+            type="checkbox" 
+            id={"activity-option"+i}
+            name="activity-option"
+            value={option.ebId} />
+          <label> {link} </label>
+        </div> );}); 
 
-  return (
+  if(props.eventState.loading){
+    return ( <h1>Loading...</h1> )
+   } else { 
+        return (
+  <div className="absolute-wrapper">
     <div className='preview-event'>
       <div>
         {/* <input type='image'/> */}
-        <button type='button' onClick={() => this.props.prevPage()}>
+        <button type='button' onClick={() => props.prevPage()}>
           {'<-'} Back
         </button>
+
+           <button type='button' onClick={() => onDraft()}>Save as Draft</button>
+        <button type='button' onClick={() => onSubmit()}>Looks good!</button>
         <h1>Preview Event Form</h1>
       </div>
 
       
       <div className="guest-event-form-wrapper">
         <h3>You're invited to:</h3>
-        <h1>Title</h1><br/>
+        <h1>{props.eventState.title}</h1><br/>
         <h3>Vote to decide on a time and place.</h3>
             
         <h3>Description</h3>
         <form className="event-form-options">
           <div className="time-options"> 
             <h4>Choose a Time:</h4>
-              {timesDisplay}
+            {timesDisplay}
           </div>
           <div className="restaurant-options"> 
             <h4>Choose a Place:</h4>
-             {restaurantsDisplay}
+            {restaurantsDisplay}
+          </div>
+          <div className="activity-options"> 
+            <h4>Choose a Place:</h4>
+            {activitiesDisplay}
           </div>
           <br/>
           <br/>
         </form>     
       </div>
 
-      <div>
-        <button type='button'>Save as Draft</button>
-        <button type='button' onClick={() => this.onSubmit()}>Looks good!</button>
-      </div>
+      {/* <div>
+        <button type='button' onClick={() => onDraft()}>Save as Draft</button>
+        <button type='button' onClick={() => onSubmit()}>Looks good!</button>
+      </div> */}
+    </div>
     </div>
   );
 }
- }
 }
-const mapStateToProps = state => ({
-  loading: state.newEvent.loading
- 
-});
-export default connect(mapStateToProps)(PreviewEvent);
 
 
 //PROPS: <PreviewEvent nextPage={this.nextPage} dispatch={this.props.dispatch} prevPage={this.prevPage} eventState={this.props.newEvent}/>;

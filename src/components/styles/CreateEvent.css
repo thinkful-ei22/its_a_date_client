@@ -1,6 +1,5 @@
 .event-form{
   max-width:350px;
-  padding-top:110px;
   margin:auto;
   text-align:left;
 
@@ -16,7 +15,8 @@ textarea{
   width:100%;
   resize:none;
   margin-top:10px;
-  padding:0px;
+  padding:10px;
+  font-size:16px;
   height: 100px;
   border-radius:6px;
 }
@@ -28,4 +28,8 @@ select{
   border-radius:6px;
   border:1px solid #666666;
   font-size:16px;
+}
+
+.bottom-offset{
+  margin-bottom:90px !important;
 }

@@ -1,0 +1,56 @@
+button{
+    padding: 5px 10px;
+    display: inline;
+    border:1px solid #575e96;
+    border-radius:6px;
+    margin-right:10px;
+    color:#575e96;
+    text-decoration:none;
+    font-size:14px;
+
+}
+
+button:hover{
+    color:#666;
+    background:#f0f4ff;
+}
+
+.button{
+    background:white;
+    font-size:14px;
+   display:inline-block;
+  }
+  
+.normal{
+    padding: 5px 10px;
+    display: inline;
+    border:1px solid #575e96;
+    border-radius:6px;
+    margin-right:10px;
+    color:#575e96;
+      text-decoration:none;
+  }
+
+  .activeLink{
+    background:#f0f4ff;
+  }
+
+  .button a:hover{
+      color:#666;
+      background:#f0f4ff;
+      
+  }
+
+  .align-right{
+      margin-top:10px;
+      margin-bottom:10px;
+      text-align:right;
+  }
+
+@media only screen and (max-width: 400px) {
+  .button a{
+    font-size:13px;
+    padding:3px 6px;
+    margin-right:8px;
+    }
+}

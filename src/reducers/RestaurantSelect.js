@@ -1,12 +1,11 @@
 import { FETCH_CUISINES_REQUEST, FETCH_CUISINES_ERROR, FETCH_CUISINES_SUCCESS, FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_ERROR, FETCH_RESTAURANTS_SUCCESS, FETCH_ZOMATO_LOCATION_REQUEST, FETCH_ZOMATO_LOCATION_ERROR, FETCH_ZOMATO_LOCATION_SUCCESS } from '../actions/RestaurantSelect';
-import { UPDATE_NEW_EVENT_STATE } from '../actions/New-Event';
 
 const initialState = {
   cityCode:null,
   cuisines:[],
   loading: false,
   error: null,
-  restaurants: null
+  restaurants: []
 };
 
 export default function reducer(state = initialState, action){

@@ -17,14 +17,59 @@ ul {
   
   .header-bar {
     height:50px;
-    margin:10px 20px;
+    padding:20px 80px;
+    width:100%;
+    position:fixed;
+    z-index:1;
+    border-bottom:1px dashed #ccc;
+  }
+
+  .header-bar h3{
+    margin:0px;
   }
 
   .header-nav {
       float: right;
+      transform:translateY(-10px);
   }
 
   .header-logo{
     display:inline-block;
     float:left;
+    transform:translateY(-10px);
+    color:#575d98;
+    text-decoration:none;
   }
+
+  .header-logo a{
+    color:#575d98;
+    text-decoration:none;
+  }
+
+
+  @media only screen and (max-width: 450px) {
+      .header-bar {
+        height: 50px;
+        padding: 20px 10px;
+        width: 100%;
+        position: fixed;
+        z-index: 1;
+    }
+
+  }
+
+
+  .smily{
+    margin-top: -2px;
+    margin-right:4px;
+  }
+
+  .navItem {
+    text-align: center;
+    align-self: center;
+    flex: 1;
+    display:inline-block;
+    list-style-type: none;
+    padding: 0px 10px !important;
+  }
+  

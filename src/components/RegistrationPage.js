@@ -12,12 +12,15 @@ export function RegistrationPage(props) {
         return <Redirect to="/dashboard" />;
     }
     return (    
+       
         <div className="container">
            <div className="form-container">
+           <h1>Join Goodtimes</h1>
+           <p>Create an account, create events, invite your friends and more!</p>
               <RegistrationForm />
             </div>
          </div>
-                
+        
     );
 }
 

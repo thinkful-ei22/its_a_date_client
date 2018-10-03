@@ -18,7 +18,6 @@ export const authError = errorMessage => ({
 });
 
 
-
 export const login = (username, password) => dispatch => {
   dispatch(authRequest());
   return (

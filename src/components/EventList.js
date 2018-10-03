@@ -1,48 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import './styles/EventList.css';
+import EventItem from './EventItem';
 
 export function EventList(props) {
-  console.log('eventlist props',props);
-
+ 
   if(props.userEvents !== null ){
-    const event = props.userEvents.map((event, i)=>{
-      console.log(event);
+    return props.userEvents.map((event, i)=>{
       return(
-        <li key={i} className='user-event'>
-          <h2>{event.title}</h2>
-          <p>{event.description}</p>
-          {
-            event.scheduleOptions.map((date,i) =>{
-              console.log(date);
-              return(
-                <div key={i} className='date-vote'>
-                  <p>Date:{date.date}</p>
-                  <p>Votes:{date.votes}</p>
-                </div>
-              );
-              
-            })
-          }
-        </li>
-      );
+        <EventItem key={i} event={event} dispatch={props.dispatch}/>
+      )
     });
-
-    return (
-      <div className='event-list'>
-        {event}
-      </div>
-    );
-  } else {
-    return null;
   }
-
-
-
+  else{
+    return(
+      null
+    )
+  }
 }
-
-// const mapStateToProps = state => ({
-//   events: state.auth.currentUser.eventList
-// })
-
-// export default connect(mapStateToProps)(EventList);

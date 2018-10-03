@@ -1,0 +1,11 @@
+.f404Wrapper{
+    width: 100%;
+    position:absolute;
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
