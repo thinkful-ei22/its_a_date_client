@@ -1,6 +1,7 @@
 import React from 'react';
 import { putUpdatedDraft } from '../../actions/Edit-Draft';
 import { postNewEvent, resetNewEventState } from '../../actions/New-Event';
+import { updateSavedEvent } from '../../actions/Edit-Saved-Event';
 import '../styles/PreviewEvent.css'
 
 
@@ -19,7 +20,14 @@ export default function PreviewEvent (props) {
       activityOptions: props.eventState.activityOptions
     };
 
-    if(!props.eventState.draft){ 
+    if(!props.eventState.draft && props.eventState.id){ 
+      event.id = props.eventState.id;
+      return props.dispatch(updateSavedEvent(event))
+      .then(() => props.nextPage())
+      .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
+
+
+    } else if(!props.eventState.draft){ 
     return props.dispatch(postNewEvent(event))
       .then(() => props.nextPage())
       .catch(err => console.log('ERROR HANDLING HERE dispatch(changeErrorMessaeg(err.message))'));
