@@ -3,6 +3,7 @@ import '../../styles/EventList.css';
 import EventItem from './EventItem';
 import DraftItem from '../UserDrafts/DraftItem';
 
+
 export function EventList(props) {
 
   if(props.loading){
