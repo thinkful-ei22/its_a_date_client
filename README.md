@@ -9,7 +9,7 @@
 
 Goodtimes is a small app designed to help friends select the time and place to hang out that works best for the group. By simply casting votes, everyone can avoid those never-ending group texts that decide nothing. Get ready to organize a get-together faster than ever before!
 
-Goodtimes was made during a three week span as part of Thinkful's Engineering Immersion program. Members worked as team utilizing Agile development practices and methodology with daily standups and weekly retrospectives.
+Goodtimes was made during a three week span as part of Thinkful's Engineering Immersion program. Members worked as ateam utilizing Agile development practices and methodology with daily standups and weekly retrospectives.
 
 
 ## Deployed app
