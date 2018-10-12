@@ -51,7 +51,7 @@ export default class SelectActivity extends React.Component {
    
 
   render(){
-    console.log('selAct props', this.props)
+  
     let categoryFilters;
     if(this.props.categories.length > 0){
       categoryFilters = this.props.categories.map(category => {
