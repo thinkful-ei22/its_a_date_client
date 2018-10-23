@@ -3,7 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import {registerUser} from '../../../actions/Users';
 import Input from '../../ReusableComponents/Input';
 import {required, nonEmpty, matches, length, isTrimmed} from '../../../Validators';
-import { authError } from '../../../actions/Auth';
+import { authError, login } from '../../../actions/Auth';
 const passwordLength = length({min: 10, max: 72});
 const uuidv4 = require('uuid/v4');
 
@@ -17,6 +17,16 @@ export class RegistrationForm extends React.Component {
     this.emailAddressId=uuidv4();
     this.matchesPassword = matches(this.passwordId);
   }
+
+  demoLogin = () => {
+    document.getElementById(this.usernameId).value = 'demouser';
+    document.getElementById(this.passwordId).value = 'password12';
+    document.getElementById('passwordConfirm').value = 'password12';
+    document.getElementById(this.emailAddressId).value = 'demouser@foobar.com';
+    this.props.dispatch(login('demouser', 'password12'));
+  }
+
+
   onSubmit(values) {
     const username = values[this.usernameId];
     const password = values[this.passwordId];
@@ -54,6 +64,7 @@ export class RegistrationForm extends React.Component {
 
         <label htmlFor={this.usernameId}>Email</label>
         <Field
+          id={this.emailAddressId}
           component={Input}
           autofocus
           type="email"
@@ -63,6 +74,7 @@ export class RegistrationForm extends React.Component {
 
         <label htmlFor={this.usernameId}>Username</label>
         <Field
+          id={this.usernameId}
           component={Input}
           autofocus
           type="text"
@@ -71,6 +83,7 @@ export class RegistrationForm extends React.Component {
         />
         <label htmlFor={this.passwordId}>Password</label>
         <Field
+          id={this.passwordId}
           component={Input}
           type="password"
           name={this.passwordId}
@@ -79,6 +92,7 @@ export class RegistrationForm extends React.Component {
 
         <label htmlFor="passwordConfirm">Confirm password</label>
         <Field
+          id='passwordConfirm'
           component={Input}
           type="password"
           name="passwordConfirm"
@@ -86,6 +100,7 @@ export class RegistrationForm extends React.Component {
         />
 
         <div className='align-right'>
+          <a className='demo-login-link-register' onClick={() => this.demoLogin()}>Use Demo Account</a>
           <button
             type="submit"
             disabled={this.props.pristine || this.props.submitting}>
