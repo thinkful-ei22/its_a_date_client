@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import '../styles/LandingPage.css';
 import '../styles/AppleEmoji32.css';
-import Button from '../ReusableComponents/Button';
 
 
 
