@@ -15,6 +15,12 @@ export class LoginForm extends React.Component {
     this.passwordId=uuidv4();
   }
 
+  demoLogin = () => {
+    document.getElementById(this.usernameId).value = 'demouser';
+    document.getElementById(this.passwordId).value = 'password12';
+    this.props.dispatch(login('demouser', 'password12'));
+  }
+
   onSubmit(values) {
     return this.props.dispatch(login(values[this.usernameId], values[this.passwordId]));
   }
@@ -58,6 +64,7 @@ export class LoginForm extends React.Component {
         />
 
         <div className='align-right'>
+          <a className='demo-login-link' onClick={() => this.demoLogin()}>Use Demo Account</a>
           <button disabled={this.props.pristine || this.props.submitting}>
                         Log in
           </button>
