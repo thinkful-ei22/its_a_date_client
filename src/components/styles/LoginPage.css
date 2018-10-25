@@ -21,3 +21,41 @@ background-size:cover !important;
     background:url('/assets/background-3.png') !important;
 background-size:cover !important;
 }
+
+.demo-login-link {
+  text-decoration: underline;
+  margin-right: 30px;
+  background-color: rgba(255, 255, 255, 0.8)
+}
+
+.demo-login-link:hover, .demo-login-link:focus {
+  cursor: pointer;
+  text-shadow: 0 0 1px orange;
+  color: #575d98;
+  background-color: white;
+}
+
+@media only screen and (max-width: 450px) {
+  .demo-login-link {
+    margin-right: 50px;
+  }
+}
+
+.demo-login-link-register {
+  text-decoration: underline;
+  margin-right: 17px;
+  background-color: rgba(255, 255, 255, 0.8)
+}
+
+.demo-login-link-register:hover, .demo-login-link-register:focus {
+  cursor: pointer;
+  text-shadow: 0 0 1px orange;
+  color: #575d98;
+  background-color: white;
+}
+
+@media only screen and (max-width: 450px) {
+  .demo-login-link-register {
+    margin-right: 38px;
+  }
+}

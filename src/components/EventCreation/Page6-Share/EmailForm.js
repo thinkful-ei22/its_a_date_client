@@ -94,7 +94,7 @@ export class EmailForm extends React.Component {
         }}>
           
           <label htmlFor='to'>Enter recipients' e-mails separated by a comma.</label>
-          <input type='email' placeholder="friend1@example.com, friend2@example.com, friend3@example.com" id="to"></input>
+          <input multiple type='email' placeholder="friend1@example.com, friend2@example.com, friend3@example.com" id="to"></input>
           <label htmlFor='subject'>Enter the subject of the e-mail.</label>
           <input placeholder="Let's hang out!" id="subject"></input>
           <label htmlFor='message'>Write the body of the e-mail.</label>

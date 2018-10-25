@@ -39,9 +39,10 @@ export default function reducer(state = initialState, action) {
         })
 
     } else if (action.type === FETCH_PROTECTED_DATA_ERROR) {
+        const errorMessage = action.error.message ? action.error.message : action.error;
         return Object.assign({}, state, {
             loading: false,
-            error: action.error
+            error: errorMessage
         })
     }
 
