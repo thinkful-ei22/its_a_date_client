@@ -1,56 +1,59 @@
-import React from 'react';
-import {Field, reduxForm} from 'redux-form';
-import {registerUser} from '../../../actions/Users';
-import Input from '../../ReusableComponents/Input';
-import {required, nonEmpty, matches, length, isTrimmed} from '../../../Validators';
-import { authError } from '../../../actions/Auth';
-const passwordLength = length({min: 10, max: 72});
-const uuidv4 = require('uuid/v4');
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { registerUser } from "../../../actions/Users";
+import Input from "../../ReusableComponents/Input";
+import {
+  required,
+  nonEmpty,
+  matches,
+  length,
+  isTrimmed
+} from "../../../Validators";
+import { authError } from "../../../actions/Auth";
+const passwordLength = length({ min: 10, max: 72 });
+const uuidv4 = require("uuid/v4");
 
 export class RegistrationForm extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.randomId=uuidv4();
-    this.usernameId=uuidv4();
-    this.passwordId=uuidv4();
-    this.emailAddressId=uuidv4();
+    this.randomId = uuidv4();
+    this.usernameId = uuidv4();
+    this.passwordId = uuidv4();
+    this.emailAddressId = uuidv4();
     this.matchesPassword = matches(this.passwordId);
   }
-  onSubmit(values) {
+  onSubmit = values => {
+    console.log("Values", values);
     const username = values[this.usernameId];
     const password = values[this.passwordId];
     const email = values[this.emailAddressId];
 
     if (!username) {
-      return this.props.dispatch(authError('Username is required.'));
+      return this.props.dispatch(authError("Username is required."));
     } else if (!password) {
-      return this.props.dispatch(authError('Password is required.'));
+      return this.props.dispatch(authError("Password is required."));
     } else if (!email) {
-      return this.props.dispatch(authError('Email is required.'));
+      return this.props.dispatch(authError("Email is required."));
     }
 
-    const user = {username, password, email};
+    const user = { username, password, email };
     this.props.dispatch(authError(null));
-    return this.props.dispatch(registerUser(user))
+    return this.props.dispatch(registerUser(user));
+  };
+
+  componentWillUnmount() {
+    this.props.dispatch(authError(null));
   }
 
-  componentWillUnmount(){
-    this.props.dispatch(authError(null));
-  }
-
-
+  //this.props.handleSubmit
   render() {
-
     return (
       <form
         id={this.randomId}
         className="registration-form"
-        onSubmit={this.props.handleSubmit(values =>
-          this.onSubmit(values)
-        )}>
-
-        <p className='form-error'>{this.props.errorMessage}</p>
+        onSubmit={this.onSubmit(values)}
+      >
+        <p className="form-error">{this.props.errorMessage}</p>
 
         <label htmlFor={this.usernameId}>Email</label>
         <Field
@@ -85,11 +88,12 @@ export class RegistrationForm extends React.Component {
           validate={[required, nonEmpty, this.matchesPassword]}
         />
 
-        <div className='align-right'>
+        <div className="align-right">
           <button
             type="submit"
-            disabled={this.props.pristine || this.props.submitting}>
-              Register
+            disabled={this.props.pristine || this.props.submitting}
+          >
+            Register
           </button>
         </div>
       </form>
@@ -98,5 +102,5 @@ export class RegistrationForm extends React.Component {
 }
 
 export default reduxForm({
-  form: 'registration'
+  form: "registration"
 })(RegistrationForm);
